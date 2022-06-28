@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TSReport>
+	<ReportInfo key="ID" value="f4fb0a29-93b1-4f7f-ada7-672b382774ab" type="System.Guid" />
+	<ReportInfo key="Start" value="2022-06-23T10:55:04.3700000+02:00" type="System.DateTime" />
+	<ReportInfo key="EngineStarted" value="2022-06-23T08:51:29.9940000Z" type="System.DateTime" />
+	<ReportInfo key="ReportWritten" value="2022-06-23T10:55:04.5055940+02:00" type="System.DateTime" />
+	<ReportInfo key="SN" value="12345" type="System.String" />
+	<ReportInfo key="PN" value="PN1" type="System.String" />
+	<ReportInfo key="Rev" value="1.0" type="System.String" />
+	<ReportInfo key="PCode" value="60" type="System.String" />
+	<Prop Name='UUT' Type='Obj' TypeName='ET_UUT' Flags='0x84'>
+		<Comment >UUT information used by WATS. (used by VIRINCO AS)</Comment>
+		<Prop Name='SerialNumber' Type='String' Flags='0x0'>
+			<Value>12345</Value>
+		</Prop>
+		<Prop Name='UUTLoopIndex' Type='Number' Flags='0x0'>
+			<Value>1</Value>
+		</Prop>
+		<Prop Name='BatchLoopIndex' Type='Number' Flags='0x0'>
+			<Value>0</Value>
+		</Prop>
+		<Prop Name='BatchFailCount' Type='Number' Flags='0x0'>
+			<Value>0</Value>
+		</Prop>
+		<Prop Name='CriticalFailureStack' Type='Array' LBound='[0]' HBound='[]' ElementType='Obj' Flags='0x0'>
+		</Prop>
+		<Prop Name='BatchSerialNumber' Type='String' Flags='0x0'>
+			<Value></Value>
+		</Prop>
+		<Prop Name='TestSocketIndex' Type='Number' Flags='0x0'>
+			<Value>-1</Value>
+		</Prop>
+		<Prop Name='PartNumber' Type='String' Flags='0x0'>
+			<Value>PN1</Value>
+		</Prop>
+		<Prop Name='AdditionalData' Type='Obj' Flags='0x200000'>
+		</Prop>
+		<Prop Name='UUTPartNumber' Type='String' Flags='0x0'>
+			<Value>PN1</Value>
+		</Prop>
+		<Prop Name='UUTPartRevisionNumber' Type='String' Flags='0x0'>
+			<Value>1.0</Value>
+		</Prop>
+		<Prop Name='UUTOperationType' Type='Number' Flags='0x0'>
+			<Value>60</Value>
+		</Prop>
+		<Prop Name='UUTOperationTypeDetails' Type='Obj' TypeName='WATS_OperationType' Flags='0x0'>
+			<Prop Name='OpTypeCodeInt' Type='Number' Flags='0x0'>
+				<Value>0</Value>
+			</Prop>
+			<Prop Name='OpTypeCodeString' Type='String' Flags='0x0'>
+				<Value></Value>
+			</Prop>
+			<Prop Name='OpTypeCodeGUID' Type='String' Flags='0x0'>
+				<Value></Value>
+			</Prop>
+			<Prop Name='OpTypeName' Type='String' Flags='0x0'>
+				<Value></Value>
+			</Prop>
+			<Prop Name='OpTypeDescription' Type='String' Flags='0x0'>
+				<Value></Value>
+			</Prop>
+		</Prop>
+		<Prop Name='Comment' Type='String' Flags='0x0'>
+			<Value></Value>
+		</Prop>
+		<Prop Name='UUT_Fixture_ID' Type='String' Flags='0x0'>
+			<Value></Value>
+		</Prop>
+		<Prop Name='MiscUUTResult' Type='Obj' Flags='0x0'>
+			<Prop Name='UUT_Part_Info' Type='Array' LBound='[0]' HBound='[]' ElementType='Obj' Flags='0x0'>
+			</Prop>
+			<Prop Name='Misc_UUT_Info' Type='Array' LBound='[0]' HBound='[]' ElementType='Obj' Flags='0x0'>
+			</Prop>
+			<Prop Name='SPC_Data' Type='Array' LBound='[0]' HBound='[]' ElementType='Obj' Flags='0x0'>
+			</Prop>
+		</Prop>
+		<Prop Name='UnitRef' Type='Reference' Flags='0x0'>
+			<Comment >WATS MES</Comment>
+			<Value>Nothing</Value>
+		</Prop>
+	</Prop>
+	<Prop Name='StationInfo' Type='Obj' TypeName='NI_StationInfo' Flags='0x0'>
+		<Prop Name='StationID' Type='String' Flags='0x0'>
+			<Value>VIC-PCBA-003</Value>
+		</Prop>
+		<Prop Name='LoginName' Type='String' Flags='0x0'>
+			<Value>administrator</Value>
+		</Prop>
+		<Prop Name='AdditionalData' Type='Obj' Flags='0x200000'>
+		</Prop>
+		<Prop Name='Location' Type='String' Flags='0x0'>
+			<Value>Norautron Horten</Value>
+		</Prop>
+		<Prop Name='Purpose' Type='String' Flags='0x0'>
+			<Value>PCBA Test</Value>
+		</Prop>
+		<Prop Name='StationComputerName' Type='String' Flags='0x0'>
+			<Value>VIC-PCBA-003</Value>
+		</Prop>
+		<Prop Name='StationGuid' Type='String' Flags='0x0'>
+			<Value>901B0EB71897</Value>
+		</Prop>
+	</Prop>
+	<Prop Name='MainSequenceResults' Type='TEResult' Flags='0x0'>
+		<Prop Name='TS' Type='Obj' Flags='0x0'>
+			<Prop Name='SequenceCall' Type='Obj' Flags='0x0'>
+				<Prop Name='ResultList' Type='Array' LBound='[0]' HBound='[0]' ElementType='Obj' Flags='0x0'>
+					<Value ID='[0]'>
+						<Prop Type='TEResult' Flags='0x0'>
+							<Prop Name='Error' Type='Obj' TypeName='Error' Flags='0x400000'>
+								<Prop Name='Code' Type='Number' Flags='0x400000'>
+									<Value>0</Value>
+								</Prop>
+								<Prop Name='Msg' Type='String' Flags='0x400000'>
+									<Value></Value>
+								</Prop>
+								<Prop Name='Occurred' Type='Boolean' Flags='0x400000'>
+									<Value>False</Value>
+								</Prop>
+							</Prop>
+							<Prop Name='Status' Type='String' Flags='0x400000'>
+								<Value>Passed</Value>
+							</Prop>
+							<Prop Name='PassFail' Type='Boolean' Flags='0x0'>
+								<Value>True</Value>
+							</Prop>
+							<Prop Name='ReportText' Type='String' Flags='0x400000'>
+								<Value></Value>
+							</Prop>
+							<Prop Name='Common' Type='Obj' TypeName='CommonResults' Flags='0x0'>
+							</Prop>
+							<Prop Name='TS' Type='Obj' Flags='0x0'>
+								<Prop Name='StartTime' Type='Number' Flags='0x0'>
+									<Value>214.4463569</Value>
+								</Prop>
+								<Prop Name='TotalTime' Type='Number' Flags='0x0'>
+									<Value>5.41e-05</Value>
+								</Prop>
+								<Prop Name='Index' Type='Number' Flags='0x0'>
+									<Value>0</Value>
+								</Prop>
+								<Prop Name='StepName' Type='String' Flags='0x0'>
+									<Value>Pass/Fail Test</Value>
+								</Prop>
+								<Prop Name='StepGroup' Type='String' Flags='0x0'>
+									<Value>Main</Value>
+								</Prop>
+								<Prop Name='StepId' Type='String' Flags='0x0'>
+									<Value>ID#:YUT20dHy7BGprpAbDrcYlD</Value>
+								</Prop>
+								<Prop Name='Id' Type='Number' Flags='0x0'>
+									<Value>7</Value>
+								</Prop>
+								<Prop Name='StepType' Type='String' Flags='0x0'>
+									<Value>ET_PFT</Value>
+								</Prop>
+								<Prop Name='BlockLevel' Type='Number' Flags='0x0'>
+									<Value>0</Value>
+								</Prop>
+							</Prop>
+						</Prop>
+					</Value>
+				</Prop>
+				<Prop Name='SequenceFile' Type='String' Flags='0x0'>
+					<Value>C:\Users\Vicotee\Desktop\Sequence File 1.seq</Value>
+				</Prop>
+				<Prop Name='SequenceFileVersion' Type='String' Flags='0x0'>
+					<Value>0.0.0.0</Value>
+				</Prop>
+				<Prop Name='Sequence' Type='String' Flags='0x0'>
+					<Value>MainSequence</Value>
+				</Prop>
+				<Prop Name='Status' Type='String' Flags='0x0'>
+					<Value>Passed</Value>
+				</Prop>
+				<Prop Name='ThreadId' Type='Number' Flags='0x0'>
+					<Value>7</Value>
+				</Prop>
+			</Prop>
+			<Prop Name='StartTime' Type='Number' Flags='0x0'>
+				<Value>214.3985775</Value>
+			</Prop>
+			<Prop Name='TotalTime' Type='Number' Flags='0x0'>
+				<Value>0.0539233</Value>
+			</Prop>
+			<Prop Name='ModuleTime' Type='Number' Flags='0x0'>
+				<Value>0.0538278</Value>
+			</Prop>
+			<Prop Name='Index' Type='Number' Flags='0x0'>
+				<Value>12</Value>
+			</Prop>
+			<Prop Name='StepName' Type='String' Flags='0x0'>
+				<Value>MainSequence Callback</Value>
+			</Prop>
+			<Prop Name='StepGroup' Type='String' Flags='0x0'>
+				<Value>Main</Value>
+			</Prop>
+			<Prop Name='StepId' Type='String' Flags='0x0'>
+				<Value>ID#:xnW0PT0ORE2el7wF7uaxyB</Value>
+			</Prop>
+			<Prop Name='Id' Type='Number' Flags='0x0'>
+				<Value>6</Value>
+			</Prop>
+			<Prop Name='StepType' Type='String' Flags='0x0'>
+				<Value>SequenceCall</Value>
+			</Prop>
+			<Prop Name='BlockLevel' Type='Number' Flags='0x0'>
+				<Value>1</Value>
+			</Prop>
+		</Prop>
+		<Prop Name='Error' Type='Obj' TypeName='Error' Flags='0x400000'>
+			<Prop Name='Code' Type='Number' Flags='0x400000'>
+				<Value>0</Value>
+			</Prop>
+			<Prop Name='Msg' Type='String' Flags='0x400000'>
+				<Value></Value>
+			</Prop>
+			<Prop Name='Occurred' Type='Boolean' Flags='0x400000'>
+				<Value>False</Value>
+			</Prop>
+		</Prop>
+		<Prop Name='Status' Type='String' Flags='0x400000'>
+			<Value>Passed</Value>
+		</Prop>
+		<Prop Name='ReportText' Type='String' Flags='0x400000'>
+			<Value></Value>
+		</Prop>
+		<Prop Name='Common' Type='Obj' TypeName='CommonResults' Flags='0x0'>
+		</Prop>
+	</Prop>
+</TSReport>
