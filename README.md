@@ -12,7 +12,7 @@ This converter does not support WATS Client 5.1 or older, because that version u
 
 ## Download
 
-You can download the latest released version of the converter [here](Insert link to download here). See the Custom Converter section in the [WATS Client Installation Guide](https://wats.com/download) for your version of the WATS Client for how to install a converter.
+You can download the latest released version of the converter [here](https://github.com/Virinco/TestStand-XML-Converter/releases/latest). See the Custom Converter section in the [WATS Client Installation Guide](https://wats.com/download) for your version of the WATS Client for how to install a converter.
 
 ### Parameters
 
