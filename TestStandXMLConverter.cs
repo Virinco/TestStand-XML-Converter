@@ -164,20 +164,21 @@ namespace TestStandXMLConverter
             }
 
             //Get from file, if xpStation has values and we do not find anything in file, default to xpStation data.
-            if (!xpStationExists && stationInfo.Elements().Where(el => el.Attribute("Name").Value == "LoginName").FirstOrDefault().Value.Trim() != "")
+            if (!xpStationExists && stationInfo.Elements().Where(el => el.Attribute("Name").Value == "LoginName").FirstOrDefault() != null)
                 oper = stationInfo.Elements().Where(el => el.Attribute("Name").Value == "LoginName").FirstOrDefault().Value.Trim();
             else if (xpStationExists)
                 oper = xpStationInfo.getStringValue("LoginName");
             else
                 oper = "";
 
-            if (!xpStationExists && stationInfo.Elements().Where(el => el.Attribute("Name").Value == "StationID").FirstOrDefault().Value.Trim() != "")
+            if (!xpStationExists && stationInfo.Elements().Where(el => el.Attribute("Name").Value == "StationID").FirstOrDefault() != null)
                 stationId = stationInfo.Elements().Where(el => el.Attribute("Name").Value == "StationID").FirstOrDefault().Value.Trim();
             else if (xpStationExists)
                 stationId = xpStationInfo.getStringValue("StationID");
             else
                 stationId = "";
-            if (!xpStationExists && stationInfo.Elements().Where(el => el.Attribute("Name").Value == "Location").FirstOrDefault().Value.Trim() != "")
+
+            if (!xpStationExists && stationInfo.Elements().Where(el => el.Attribute("Name").Value == "Location").FirstOrDefault() != null)
                 location = stationInfo.Elements().Where(el => el.Attribute("Name").Value == "Location").FirstOrDefault().Value.Trim();
             else if (!xpStationExists && parameters["location"] != "")
                 location = parameters["location"];
@@ -185,7 +186,8 @@ namespace TestStandXMLConverter
                 location = xpStationInfo.getStringValue("Location");
             else
                 location = "";
-            if (!xpStationExists && stationInfo.Elements().Where(el => el.Attribute("Name").Value == "Purpose").FirstOrDefault().Value.Trim() != "")
+
+            if (!xpStationExists && stationInfo.Elements().Where(el => el.Attribute("Name").Value == "Purpose").FirstOrDefault() != null)
                 purpose = stationInfo.Elements().Where(el => el.Attribute("Name").Value == "Purpose").FirstOrDefault().Value.Trim();
             else if (!xpStationExists && parameters["purpose"] != "")
                 purpose = parameters["purpose"];
@@ -230,15 +232,18 @@ namespace TestStandXMLConverter
             //Use xpStationExists so we know if we have this data in the file or not. 
             if (!xpStationExists)
             {
-                //This is for getting date and time as they are split in the Somfy report files.
                 var date = xmlReport.Root.Element("Report").Elements().Where(el => el.Attribute("TypeName").Value == "DateDetails").FirstOrDefault();
                 var time = xmlReport.Root.Element("Report").Elements().Where(el => el.Attribute("TypeName").Value == "TimeDetails").FirstOrDefault();
 
                 string datetime;
                 string datestring, timestring;
+                string day, month, year;
 
+                day = date.Elements().Where(el => el.Attribute("Name").Value == "MonthDay").FirstOrDefault().Value.Trim();
+                month = date.Elements().Where(el => el.Attribute("Name").Value == "Month").FirstOrDefault().Value.Trim();
+                year = date.Elements().Where(el => el.Attribute("Name").Value == "Year").FirstOrDefault().Value.Trim();
                 //date
-                datestring = date.Elements().Where(el => el.Attribute("Name").Value == "ShortText").FirstOrDefault().Value.Trim();
+                datestring = day + "/" + month + "/" + year;
                 timestring = time.Elements().Where(el => el.Attribute("Name").Value == "Text").FirstOrDefault().Value.Trim();
 
                 datetime = datestring + " " + timestring;
@@ -265,17 +270,37 @@ namespace TestStandXMLConverter
             }
             else if (!xpUUTExists)
             {
-                if (Uut.Elements().Where(el => el.Attribute("Name").Value == "UUTPartNumber").FirstOrDefault().Value.Trim() != "")
+                if (Uut.Elements().Where(el => el.Attribute("Name").Value == "UUTPartNumber").FirstOrDefault() != null)
                     uut.PartNumber = Uut.Elements().Where(el => el.Attribute("Name").Value == "UUTPartNumber").FirstOrDefault().Value.Trim();
                 else
                     uut.PartNumber = Uut.Elements().Where(el => el.Attribute("Name").Value == "PartNumber").FirstOrDefault().Value.Trim();
-                uut.PartRevisionNumber = Uut.Elements().Where(el => el.Attribute("Name").Value == "UUTPartRevisionNumber").FirstOrDefault().Value.Trim();
-                uut.SerialNumber = Uut.Elements().Where(el => el.Attribute("Name").Value == "SerialNumber").FirstOrDefault().Value.Trim();
-                uut.OperationType = api.GetOperationType(Uut.Elements().Where(el => el.Attribute("Name").Value == "UUTOperationType").FirstOrDefault().Value.Trim());
-                uut.Comment = Uut.Elements().Where(el => el.Attribute("Name").Value == "Comment").FirstOrDefault().Value.Trim();
-                uut.FixtureId = Uut.Elements().Where(el => el.Attribute("Name").Value == "UUT_Fixture_ID").FirstOrDefault().Value.Trim();
-                uut.BatchSerialNumber = Uut.Elements().Where(el => el.Attribute("Name").Value == "BatchSerialNumber").FirstOrDefault().Value.Trim();
+                if (Uut.Elements().Where(el => el.Attribute("Name").Value == "UUTPartRevisionNumber").FirstOrDefault() != null)
+                    uut.PartRevisionNumber = Uut.Elements().Where(el => el.Attribute("Name").Value == "UUTPartRevisionNumber").FirstOrDefault().Value.Trim();
+                else
+                    uut.PartRevisionNumber = "";
+                if (Uut.Elements().Where(el => el.Attribute("Name").Value == "SerialNumber").FirstOrDefault() != null)
+                    uut.SerialNumber = Uut.Elements().Where(el => el.Attribute("Name").Value == "SerialNumber").FirstOrDefault().Value.Trim();
+                if (Uut.Elements().Where(el => el.Attribute("Name").Value == "Comment").FirstOrDefault() != null)
+                    uut.Comment = Uut.Elements().Where(el => el.Attribute("Name").Value == "Comment").FirstOrDefault().Value.Trim();
+                else
+                    uut.Comment = "";
+                if (Uut.Elements().Where(el => el.Attribute("Name").Value == "UUT_Fixture_ID").FirstOrDefault() != null)
+                    uut.FixtureId = Uut.Elements().Where(el => el.Attribute("Name").Value == "UUT_Fixture_ID").FirstOrDefault().Value.Trim();
+                else
+                    uut.FixtureId = "";
+                if (Uut.Elements().Where(el => el.Attribute("Name").Value == "BatchSerialNumber").FirstOrDefault() != null)
+                    uut.BatchSerialNumber = Uut.Elements().Where(el => el.Attribute("Name").Value == "BatchSerialNumber").FirstOrDefault().Value.Trim();
+                else
+                    uut.BatchSerialNumber = "";
+                if (Uut.Elements().Where(el => el.Attribute("Name").Value == "UUTOperationType").FirstOrDefault() != null)
+                    uut.OperationType = api.GetOperationType(Uut.Elements().Where(el => el.Attribute("Name").Value == "UUTOperationType").FirstOrDefault().Value.Trim());
+                else
+                    uut.OperationType = api.GetOperationType(parameters["operationTypeCode"]);
+
+                bool bliE = int.TryParse(Uut.Elements().Where(el => el.Attribute("Name").Value == "UUTLoopIndex").FirstOrDefault().Value, out int bli);
                 var tsiE = short.TryParse(Uut.Elements().Where(el => el.Attribute("Name").Value == "TestSocketIndex").FirstOrDefault().Value.Trim(), out short tsi);
+                if (bliE)
+                    uut.BatchLoopIndex = bli;
                 if (tsiE)
                     uut.TestSocketIndex = tsi;
             }
@@ -322,7 +347,7 @@ namespace TestStandXMLConverter
                         uut.AddUUTPartInfo(xp);
                     }
             }
-            else if (!xpUUTExists)
+            else if (!xpUUTExists && Uut.Elements().Where(el => el.Attribute("Name").Value == "MiscUUTResult").FirstOrDefault() != null)
             {
                 var miscUUT = Uut.Elements().Where(el => el.Attribute("Name").Value == "MiscUUTResult").FirstOrDefault();
                 var partInfo = miscUUT.Elements().Where(el => el.Attribute("Name").Value == "UUT_Part_Info").FirstOrDefault();

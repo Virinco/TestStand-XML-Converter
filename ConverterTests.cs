@@ -33,7 +33,7 @@ namespace TestStandXMLConverter
         public void TestStandConverterTest2()
         {
             InitializeAPI(true);
-            string fn = @"Examples\1.xml";
+            string fn = @"Examples\TsWithoutWats.xml";
             TestStandXMLConverter converter = new TestStandXMLConverter();
             using (FileStream file = new FileStream(fn, FileMode.Open))
             {
@@ -46,7 +46,7 @@ namespace TestStandXMLConverter
         public void TestStandConverterTest3()
         {
             InitializeAPI(true);
-            string fn = @"Examples\2.xml";
+            string fn = @"Examples\TSWithWats2.xml";
             TestStandXMLConverter converter = new TestStandXMLConverter();
             using (FileStream file = new FileStream(fn, FileMode.Open))
             {
@@ -61,7 +61,7 @@ namespace TestStandXMLConverter
             InitializeAPI(true);
             string[] files = new string[]
             {
-                "3.xml", "4.xml", "5.xml"
+                "TSWithWATS.xml", "TsWithoutWats.xml", "TSWithWats2.xml"
             };
 
             TestStandXMLConverter converter = new TestStandXMLConverter();
