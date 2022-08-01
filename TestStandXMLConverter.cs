@@ -660,7 +660,11 @@ namespace TestStandXMLConverter
                 stepRow.Status = result;
             else
                 stepRow.Status = StepResultType.Unknown;
-            stepRow.Start = dtStart;
+            DateTime def = DateTime.Parse("01-01-1970");
+            if (dtStart >= def)
+                stepRow.Start = dtStart;
+            else
+                stepRow.StartSpecified = false;
 
             if (step.Exists("TS.StepCausedSequenceFailure"))
             {
