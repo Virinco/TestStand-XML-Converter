@@ -20,7 +20,7 @@ namespace TestStandXMLConverter
         public void TestStandConverterTest()
         {
             InitializeAPI(true);
-            string fn = @"Examples\TsWithWats.xml";
+            string fn = @"Examples\TSWithWats.xml";
             TestStandXMLConverter converter = new TestStandXMLConverter();
             using (FileStream file = new FileStream(fn, FileMode.Open))
             {
