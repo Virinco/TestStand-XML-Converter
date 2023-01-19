@@ -92,7 +92,9 @@ namespace TestStandXMLConverter
                     else if (reader.Name == "Reports")
                         return ImportReport(api, reader);
                 }
-                return null;
+
+                throw new InvalidDataException("TSReport or Reports element was not found.");
+
                 //if (reader.ReadToDescendant("TSReport"))
                 //    return ImportReport(api, reader);
                 //else 
@@ -368,25 +370,25 @@ namespace TestStandXMLConverter
                 }
 
                 //MiscInfo
-                foreach (XElement el in miscInfo.Elements())
-                {
-                    string description, stringData;
-                    short numericData;
-                    bool numericE;
+                //foreach (XElement el in miscInfo.Elements())
+                //{
+                //    string description, stringData;
+                //    short numericData;
+                //    bool numericE;
 
-                    description = el.Elements().Where(e => e.Attribute("Name").Value == "Description").FirstOrDefault().Value.Trim();
-                    stringData = el.Elements().Where(e => e.Attribute("Name").Value == "Data_String").FirstOrDefault().Value.Trim();
-                    numericE = short.TryParse(el.Elements().Where(e => e.Attribute("Name").Value == "Data_Numeric").FirstOrDefault().Value.Trim(), out numericData);
+                //    description = el.Elements().Where(e => e.Attribute("Name").Value == "Description").FirstOrDefault().Value.Trim();
+                //    stringData = el.Elements().Where(e => e.Attribute("Name").Value == "Data_String").FirstOrDefault().Value.Trim();
+                //    numericE = short.TryParse(el.Elements().Where(e => e.Attribute("Name").Value == "Data_Numeric").FirstOrDefault().Value.Trim(), out numericData);
 
-                    //If description is null or empty, do not add. 
-                    if (!string.IsNullOrEmpty(description) && numericE && stringData != "")
-                        uut.AddMiscUUTInfo(description, stringData, numericData);
-                    else if (!string.IsNullOrEmpty(description) && numericE && stringData == "")
-                        uut.AddMiscUUTInfo(description, numericData);
-                    else if (!string.IsNullOrEmpty(description) && !numericE && stringData != "")
-                        uut.AddMiscUUTInfo(description, stringData);
+                //    //If description is null or empty, do not add. 
+                //    if (!string.IsNullOrEmpty(description) && numericE && stringData != "")
+                //        uut.AddMiscUUTInfo(description, stringData, numericData);
+                //    else if (!string.IsNullOrEmpty(description) && numericE && stringData == "")
+                //        uut.AddMiscUUTInfo(description, numericData);
+                //    else if (!string.IsNullOrEmpty(description) && !numericE && stringData != "")
+                //        uut.AddMiscUUTInfo(description, stringData);
 
-                }
+                //}
             }
 
             // SPC Data logging will be discontinued from WATS version 3.0 (?)
