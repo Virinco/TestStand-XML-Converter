@@ -37,8 +37,7 @@ namespace TestStandXMLConverter
                     else
                     {
                         XElement xElement = _root.Element("Report").Elements("Prop").Where(el => el.Attribute("Type").Value == "TEResult").FirstOrDefault();
-                        return new XElementParser(xElement, "TS");
-                    }
+                        return new XElementParser(xElement);
 
                 }
             }
@@ -70,7 +69,7 @@ namespace TestStandXMLConverter
                         sType = tmp.Attribute("Type").Value;
                     }
                     else
-                        sType = atrType.Value; //Cannot use this with Somfy due to different layout of xml. We would get type = obj instead of TEResult or Array.
+                        sType = atrType.Value; //Cannot use this due to different layout of xml. We would get type = obj instead of TEResult or Array.
 
                     switch (sType)
                     {
