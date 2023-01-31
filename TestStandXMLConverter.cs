@@ -42,17 +42,19 @@ namespace TestStandXMLConverter
 
         public Report ImportReport(TDM api, Stream file)
         {
+
+
             using (XmlReader reader = XmlReader.Create(file))
             {
                 while (reader.Read())
                 {
                     if (reader.Name == "TSReport")
                         return ImportReport(api, reader);
-                    else if (reader.Name == "Reports")
+                    else if (reader.Name == "Report")
                         return ImportReport(api, reader);
                 }
 
-                throw new InvalidDataException("TSReport or Reports element was not found.");
+                throw new InvalidDataException("TSReport or Report element was not found.");
 
                 //if (reader.ReadToDescendant("TSReport"))
                 //    return ImportReport(api, reader);
@@ -76,10 +78,10 @@ namespace TestStandXMLConverter
 
         private Report ImportReport(TDM api, XmlReader reader)
         {
-            if (reader.Name != "TSReport" && reader.Name != "Reports") 
-                throw new ArgumentException("Xml reader must be open and positioned on TSReport element");
+            if (reader.Name != "TSReport" && reader.Name != "Report") 
+                throw new ArgumentException("Xml reader must be open and positioned on TSReport or Report element");
 
-            return CreateUUT(api, XElement.Parse(reader.ReadInnerXml()));
+            return CreateUUT(api, XElement.Parse(reader.ReadOuterXml()));
         }
 
         #endregion
