@@ -20,10 +20,14 @@ namespace TestStandXMLConverter
 
                 DateTimeOffset dt;
                 DateTime es, rw;
-                if (DateTimeOffset.TryParse(GetReportInfo("Start"), out dt)) Start = dt;
-                if (DateTimeOffset.TryParse(GetReportInfo("StartUTC"), out dt)) StartUTC = dt;
-                if (DateTime.TryParse(GetReportInfo("EngineStarted"), out es)) EngineStarted = es;
-                if (DateTime.TryParse(GetReportInfo("ReportWritten"), out rw)) ReportWritten = rw;
+                if (DateTimeOffset.TryParse(GetReportInfo("Start"), out dt)) 
+                    Start = dt;
+                if (DateTimeOffset.TryParse(GetReportInfo("StartUTC"), out dt))
+                    StartUTC = dt;
+                if (DateTime.TryParse(GetReportInfo("EngineStarted"), out es)) 
+                    EngineStarted = es;                
+                if (DateTime.TryParse(GetReportInfo("ReportWritten"), out rw)) 
+                    ReportWritten = rw;
             }
 
             public XElementParser MainResult
@@ -36,18 +40,21 @@ namespace TestStandXMLConverter
                         return new XElementParser(_root, "MainSequenceResults");
                     else
                     {
-                        XElement xElement = _root.Element("Report").Elements("Prop").Where(el => el.Attribute("Type").Value == "TEResult").FirstOrDefault();
+                        XElement xElement = _root.Elements("Prop").FirstOrDefault(el => el.Attribute("Type").Value == "TEResult");
                         return new XElementParser(xElement);
-
+                    }
                 }
             }
             public XElementParser UUTInfo { get { return new XElementParser(_root, "UUT"); } }
             public XElementParser StationInfo { get { return new XElementParser(_root, "StationInfo"); } }
-            internal Guid ID { get; private set; }//{get{return new Guid(GetReportInfo("ID"));}}
-            internal DateTimeOffset Start { get; private set; }//{get{return DateTime.Parse(GetReportInfo("Start"));}}
-            internal DateTimeOffset StartUTC { get; private set; }//{get{return DateTime.Parse(GetReportInfo("StartUTC"));}}
+            public XElementParser TimeDetails { get { return new XElementParser(_root, "StartTime"); } }
+            public XElementParser DateDetails { get { return new XElementParser(_root, "StartDate"); } }
+
+            internal Guid? ID { get; private set; }//{get{return new Guid(GetReportInfo("ID"));}}
+            internal DateTimeOffset? Start { get; private set; }//{get{return DateTime.Parse(GetReportInfo("Start"));}}
+            internal DateTimeOffset? StartUTC { get; private set; }//{get{return DateTime.Parse(GetReportInfo("StartUTC"));}}
             internal DateTime EngineStarted { get; private set; }//{get{return DateTime.Parse(GetReportInfo("EngineStarted"));}}
-            internal DateTime ReportWritten { get; private set; }//{get{return DateTime.Parse(GetReportInfo("ReportWritten"));}}
+            internal DateTime? ReportWritten { get; private set; }//{get{return DateTime.Parse(GetReportInfo("ReportWritten"));}}
 
             internal XElementParser.TEResult RootResult
             {
@@ -55,29 +62,15 @@ namespace TestStandXMLConverter
                 {
                     XElementParser.TEResult result;
                     XElementParser mr = this.MainResult;
-                    XAttribute atrType = mr.Element.Attribute("Type");
-                    string sType;
-                    XElement tmp = null;
-                    //Need to check if it's an object. In which case, we need to look for the TEResult type to find the data we need. 
-                    if (atrType.Value.ToLower().Contains("obj"))
-                    {
-                        //There's probably a better way to do this without all of the Where searches..
-                        tmp = _root.Element("Report").Elements("Prop").Where(el => el.Attribute("Type").Value == "TEResult").FirstOrDefault();
-                        tmp = tmp.Elements("Prop").Where(el => el.Attribute("Name").Value == "TS").FirstOrDefault();
-                        tmp = tmp.Elements("Prop").Where(el => el.Attribute("Name").Value == "SequenceCall").FirstOrDefault();
-                        tmp = tmp.Elements("Prop").Where(el => el.Attribute("Name").Value == "ResultList").FirstOrDefault();
-                        sType = tmp.Attribute("Type").Value;
-                    }
-                    else
-                        sType = atrType.Value; //Cannot use this due to different layout of xml. We would get type = obj instead of TEResult or Array.
+                    XAttribute atrType = mr.Element.Attribute("Type"); 
 
-                    switch (sType)
+                    switch (atrType.Value)
                     {
                         case "TEResult":
                             result = new XElementParser.TEResult(mr.Element);
                             break;
                         case "Array":
-                            result = new XElementParser.TEResult(tmp.Elements("Value").First().Elements("Prop").Where(el => el.Attribute("Type").Value == "TEResult").FirstOrDefault());
+                            result = new XElementParser.TEResult(mr.Element.Elements("Value").First().Elements("Prop").FirstOrDefault(el => el.Attribute("Type").Value == "TEResult"));
                             break;
                         default:
                             result = null;

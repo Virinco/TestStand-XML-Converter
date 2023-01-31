@@ -215,7 +215,7 @@ namespace TestStandXMLConverter
                 if (path != null && path.Length > 0)
                     foreach (string s in path)
                     {
-                        element = (from el in element.Elements("Prop") where el.Attribute("Name").Value == s select el).FirstOrDefault();
+                        element = (from el in element.Elements("Prop") where el.Attribute("Name")?.Value == s select el).FirstOrDefault();
                         if (element == null) break;
                     }
                 return element;
