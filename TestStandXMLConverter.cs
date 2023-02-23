@@ -21,7 +21,8 @@ namespace TestStandXMLConverter
                 {"operationTypeCode","10" },
                 {"partRevision","1.0" },
                 {"location", "" },
-                {"purpose", "" }
+                {"purpose", "" },
+                {"partNumber", "" }
             };
         }
 
@@ -158,6 +159,8 @@ namespace TestStandXMLConverter
             uut.PartNumber = xpUut.getStringValue("UUTPartNumber");
             if (uut.PartNumber == string.Empty)
                 uut.PartNumber = xpUut.getStringValue("PartNumber");
+            if (uut.PartNumber == string.Empty && parameters.ContainsKey("partNumber"))
+                uut.PartNumber = parameters["partNumber"];
 
             uut.PartRevisionNumber = xpUut.getStringValue("UUTPartRevisionNumber");
             if (uut.PartRevisionNumber == string.Empty)
