@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 using Virinco.WATS.Interface;
@@ -143,7 +144,20 @@ namespace TestStandXMLConverter
                 
                 int? day = dateDetails.getIntValue("MonthDay");
                 int? month = dateDetails.getIntValue("Month");
-                int? year = dateDetails.getIntValue("Year");
+
+                // Extracting the year from the date string by finding the only 4 consecutive digits, due to inconsistency in the year element (possible bug in TestStand).
+                string startDateText = dateDetails.getStringValue("Text");
+                string startDateShortText = dateDetails.getStringValue("ShortText");
+
+                int? year = ExtractYearFromString(startDateText);
+                if (year == null)
+                {
+                    year = ExtractYearFromString(startDateShortText);
+                    if (year == null)
+                    {
+                        year = dateDetails.getIntValue("Year");
+                    }
+                }
 
                 if (!year.HasValue || !month.HasValue || !day.HasValue || !hours.HasValue || !minutes.HasValue || !seconds.HasValue || !milliseconds.HasValue)
                     throw new ArgumentNullException("Missing datetime part");
@@ -442,6 +456,20 @@ namespace TestStandXMLConverter
                         break;
                 }
             }
+        }
+
+        private int? ExtractYearFromString(string text)
+        {
+            var regex = new Regex(@"\d{4}");
+            var match = regex.Match(text);
+            if (match.Success)
+            {
+                if (int.TryParse(match.Value, System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out int year))
+                {
+                    return year;
+                }
+            }
+            return null; // Return 0 if no valid year found
         }
 
         private StepResultType SetSequenceStepData(TSUUTReport uut, XElementParser.TEResult step, Step_type stepRow)
