@@ -11,8 +11,9 @@ This converter does not support WATS Client 5.1 or older, because that version u
 * [About creating custom converters](https://virinco.zendesk.com/hc/en-us/articles/207424593)
 
 ## Download
+Download link to Wats Client and installation guide: [WATS Client Installation Guide](https://support.virinco.com/hc/en-us/sections/360003392680-WATS-Client-releases).
 
-You can download the latest released version of the converter [here](https://github.com/Virinco/TestStand-XML-Converter/releases/latest). See the Custom Converter section in the [WATS Client Installation Guide](https://wats.com/download) for your version of the WATS Client for how to install a converter.
+You can download the latest released version of the converter [here](https://github.com/Virinco/TestStand-XML-Converter/releases/latest). You can find a step by step guide on how to install the converter [here](https://support.virinco.com/hc/en-us/articles/13344321749788-Setting-up-a-custom-converter). 
 
 ### Parameters
 
