@@ -43,28 +43,37 @@ namespace TestStandXMLConverter
 
         public Report ImportReport(TDM api, Stream file)
         {
-
-
-            using (XmlReader reader = XmlReader.Create(file))
+            var invalidStylesheetRegex = new System.Text.RegularExpressions.Regex(@"<\?xml:stylesheet.*\?>");
+            using (var streamReader = new StreamReader(file))
             {
-                while (reader.Read())
+                var text = streamReader.ReadToEnd();
+                text = invalidStylesheetRegex.Replace(text, "");
+                var stringReader = new StringReader(text);
+
+                using (XmlReader reader = XmlReader.Create(stringReader))
                 {
-                    if (reader.Name == "TSReport")
-                        return ImportReport(api, reader);
-                    else if (reader.Name == "Report")
-                        return ImportReport(api, reader);
+                    while (reader.Read())
+                    {
+                        if (reader.Name == "TSReport")
+                            return ImportReport(api, reader);
+                        else if (reader.Name == "Report")
+                            return ImportReport(api, reader);
+                    }
+
+                    throw new InvalidDataException("TSReport or Report element was not found.");
+
+                    //if (reader.ReadToDescendant("TSReport"))
+                    //    return ImportReport(api, reader);
+                    //else 
+                    //if (reader.ReadToDescendant("Reports"))
+                    //    return ImportReport(api, reader);
+                    //else
+                    //    throw new System.IO.InvalidDataException("TSReport element was not found.");
                 }
-
-                throw new InvalidDataException("TSReport or Report element was not found.");
-
-                //if (reader.ReadToDescendant("TSReport"))
-                //    return ImportReport(api, reader);
-                //else 
-                //if (reader.ReadToDescendant("Reports"))
-                //    return ImportReport(api, reader);
-                //else
-                //    throw new System.IO.InvalidDataException("TSReport element was not found.");
             }
+
+
+
         }
 
         public void CleanUp()
