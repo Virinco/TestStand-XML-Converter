@@ -42,7 +42,13 @@ namespace TestStandXMLConverter
 
             //internal DateTime EngineStarted { get { return _engineStarted; } }
 
-            internal DateTime GetStartTime(double TSEngineTime) { return _engineStarted.AddSeconds(TSEngineTime); }
+            internal DateTime GetStartTime(double TSEngineTime) 
+            { 
+                if (TSEngineTime > 0)
+                    return _engineStarted.AddSeconds(TSEngineTime);
+                else
+                    return _engineStarted;
+            }
             /// <summary>
             /// Add new StepRow with Specified Parent-step, StepOrderNumber, Name and StepIndex.
             /// Beware: StepIndex is specified as Int32 - but storage is currently Int16. Step indexes with overflow will be truncated to Int16 max/min value.

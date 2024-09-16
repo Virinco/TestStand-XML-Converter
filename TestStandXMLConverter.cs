@@ -483,7 +483,6 @@ namespace TestStandXMLConverter
 
         private StepResultType SetSequenceStepData(TSUUTReport uut, XElementParser.TEResult step, Step_type stepRow)
         {
-            DateTime dtStart = uut.GetStartTime(step.StartTime);
             StepGroup_type group;
             if (Enum.TryParse<StepGroup_type>(step.StepGroup, out group)) stepRow.Group = group;
             else group = StepGroup_type.Main;
@@ -501,7 +500,9 @@ namespace TestStandXMLConverter
                 stepRow.Status = result;
             else
                 stepRow.Status = StepResultType.Unknown;
+
             DateTime def = DateTime.Parse("01-01-1970");
+            DateTime dtStart = uut.GetStartTime(step.StartTime);
             if (dtStart >= def)
                 stepRow.Start = dtStart;
             else
