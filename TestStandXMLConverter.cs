@@ -22,7 +22,8 @@ namespace TestStandXMLConverter
                 {"operationTypeCode","10" },
                 {"partRevision","1.0" },
                 {"location", "" },
-                {"purpose", "" }
+                {"purpose", "" },
+                {"convertAdditionalDataToMiscInfo", "false"}
             };
         }
 
@@ -209,7 +210,16 @@ namespace TestStandXMLConverter
                 foreach (var additionalDataProp in additionalDataProps)
                 {
                     var xpAdditionalData = new XElementParser(additionalDataProp);
-                    uut.AddAdditionalData(xpAdditionalData.Name, xpAdditionalData.Element);
+                    if (parameters["convertAdditionalDataToMiscInfo"].ToLower() == "true")
+                    {
+                        if (!string.IsNullOrEmpty(xpAdditionalData.Element.Value))
+                        {
+                            uut.AddMiscUUTInfo(xpAdditionalData.Name, xpAdditionalData.Element.Value);
+                        }
+                    } else
+                    {
+                        uut.AddAdditionalData(xpAdditionalData.Name, xpAdditionalData.Element);
+                    }
                 }
             }
 
@@ -247,9 +257,17 @@ namespace TestStandXMLConverter
         {
             foreach (XElement el in steps)
             {
-                XElementParser.TEResult step = new XElementParser.TEResult(
-                    (from te in el.Elements("Prop") where te.Attribute("Type").Value == "TEResult" select te).First()
-                    );
+                var resultElement = (from te in el.Elements("Prop") where te.Attribute("Type")?.Value == "TEResult" select te).FirstOrDefault();
+
+                XElementParser.TEResult step = null;
+                if (resultElement != null)
+                {
+                    step = new XElementParser.TEResult(resultElement);
+                }
+                else
+                {
+                    continue;
+                }
 
                 Step_type stepRow = uut.AddStep(parentRow, step.StepName, step.StepIndex);
                 StepResultType status = SetSequenceStepData(uut, step, stepRow);
@@ -412,7 +430,6 @@ namespace TestStandXMLConverter
                     MemoryStream stream = new MemoryStream(System.Text.Encoding.Default.GetBytes(step.getStringValue("XMLString").Replace("\\r\n", "\n")));
                     uut.AddFileAttachment(stepRow, "stepdata.xml", "text/xml", stream);
                 }
-                //                }
                 if (step.Exists("AdditionalResults"))
                 {
                     int index = 0;
@@ -429,7 +446,6 @@ namespace TestStandXMLConverter
         {
             //AddAdditionalResults adds each child XElement of the element. 
             //When the child elements are values, we send the element above so the prop element will be included.
-
             var prop = new XElementParser(arrayIndexElement.Element("Prop"));
             if (prop.Element.Elements("Value").Any())
             {
